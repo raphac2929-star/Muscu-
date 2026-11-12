@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Muscu">
+<meta name="theme-color" content="#0d0f14">
+<title>Muscu</title>
+<style>
+:root{--bg:#0d0f14;--card:#171a22;--card2:#1f232e;--txt:#f2f4f8;--mut:#8b92a5;--acc:#ff6b2c;--ok:#34d399;--line:#2a2f3d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,system-ui,sans-serif;padding-top:env(safe-area-inset-top);padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+h1{font-size:26px;margin:18px 16px 4px}h2{font-size:18px;margin:18px 16px 8px}
+.sub{color:var(--mut);margin:0 16px 12px;font-size:14px}
+.card{background:var(--card);border-radius:14px;margin:10px 16px;padding:14px}
+.row{display:flex;align-items:center;gap:8px}.sp{justify-content:space-between}
+button{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:16px;font-weight:600}
+button.sec{background:var(--card2);color:var(--txt)}button.del{background:transparent;color:#ef4444;padding:6px 10px}
+button.big{width:calc(100% - 32px);margin:10px 16px}
+input,select{background:var(--card2);color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:16px;width:100%}
+input.n{width:72px;text-align:center}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav div{flex:1;text-align:center;padding:12px 0;color:var(--mut);font-size:13px}nav div.on{color:var(--acc);font-weight:700}
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:12px;font-weight:700;color:#000}
+.set{display:flex;align-items:center;gap:8px;margin:6px 0}.set .i{width:24px;color:var(--mut)}
+.set.done input{opacity:.5}.chk{width:40px;padding:10px 0;background:var(--card2)}.chk.on{background:var(--ok)}
+.bar{height:8px;background:var(--card2);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.timer{position:fixed;left:16px;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));background:var(--acc);border-radius:14px;padding:12px 16px;display:none;align-items:center;justify-content:space-between;font-weight:700;z-index:5}
+.pr{color:var(--ok);font-weight:700;font-size:13px}.mut{color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="timer" id="timer"><span id="tt">Repos 0:00</span><button class="sec" onclick="stopT()">Passer</button></div>
+<nav id="nav"></nav>
+<script>
+const K='muscu_v1';
+const RANKS=[['Bronze',0,'#b87333'],['Argent',0.5,'#c0c0c0'],['Or',0.75,'#ffd700'],['Platine',1,'#5eead4'],['Diamant',1.5,'#60a5fa'],['Maître',2,'#c084fc'],['Légende',2.5,'#f43f5e']];
+const BASE={'Développé couché':1,'Squat':1.4,'Soulevé de terre':1.7,'Développé militaire':0.7,'Rowing barre':0.9,'Tractions lestées':0.3,'Dips lestés':0.4,'Curl barre':0.5,'Leg press':2.5,'Hip thrust':1.6};
+const DEF={bodyweight:75,exercises:Object.keys(BASE).concat(['Développé incliné haltères','Tirage v
